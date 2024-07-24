@@ -1,11 +1,48 @@
 {
   "name": "serverless-git-version-compare",
   "version": "0.1.0",
-  "main": "index.js",
+  "main": "src/plugin.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest tests/",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --write ."
   },
-  "author": "",
-  "license": "ISC",
-  "description": ""
+  "author": "Yonatan Greenfeld <yonathangreenfeld97@gmail.com>",
+  "license": "MIT",
+  "description": "A plugin for comparing local and deployed AWS serverless stack versions.",
+  "keywords": [
+    "serverless",
+    "aws",
+    "git",
+    "version",
+    "compare",
+    "plugin"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/YonatanGreenfeld/serverless-git-version-compare.git"
+  },
+  "bugs": {
+    "url": "https://github.com/YonatanGreenfeld/serverless-git-version-compare/issues"
+  },
+  "homepage": "https://github.com/YonatanGreenfeld/serverless-git-version-compare",
+  "dependencies": {
+    "simple-git": "^3.25.0"
+  },
+  "peerDependencies": {
+    "serverless": "^3"
+  },
+  "jest": {
+    "testEnvironment": "node"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.7.0",
+    "eslint": "^9.7.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.2.1",
+    "globals": "^15.8.0",
+    "jest": "^29.7.0",
+    "prettier": "^3.3.3"
+  }
 }

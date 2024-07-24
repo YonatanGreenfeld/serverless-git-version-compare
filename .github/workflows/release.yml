@@ -1,0 +1,44 @@
+name: Release
+
+on:
+  workflow_dispatch:
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '22'
+        registry-url: 'https://registry.npmjs.org'
+
+    - name: Install dependencies
+      run: npm install
+
+    - name: Publish to npm
+      run: npm publish
+      env:
+        NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+    - name: Set Version
+      id: set_version
+      run: |
+        VERSION=$(node -p "require('./package.json').version")
+        echo "VERSION=${VERSION}" >> $GITHUB_STATE
+
+    - name: Automatic Release
+      uses: softprops/action-gh-release@v2.0.8
+      with:
+        tag_name: V${{ steps.set_version.outputs.VERSION }}
+        name: Release ${{ steps.set_version.outputs.VERSION }}
+        generate_release_notes: true
+        draft: false
+        prerelease: false
+        token: ${{ secrets.GITHUB_TOKEN }}
