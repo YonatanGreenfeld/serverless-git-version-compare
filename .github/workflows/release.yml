@@ -31,7 +31,7 @@ jobs:
       id: set_version
       run: |
         VERSION=$(node -p "require('./package.json').version")
-        echo "VERSION=${VERSION}" >> $GITHUB_STATE
+        echo "VERSION=${VERSION}" >> $GITHUB_OUTPUT
 
     - name: Automatic Release
       uses: softprops/action-gh-release@v2.0.8
