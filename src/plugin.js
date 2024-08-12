@@ -96,8 +96,13 @@ class GitVersionComparePlugin {
    * @returns {Promise<string|null>}
    */
   async getDeployedCommit() {
-    const stackName = this.provider.naming.getStackName();
-    return await this.getCurrentDeployedCommit(stackName);
+    try {
+      const stackName = this.provider.naming.getStackName();
+      return await this.getCurrentDeployedCommit(stackName);
+    } catch (error) {
+      this.log.error(`Error getting stack name: ${error}`);
+      return null;
+    }
   }
 
   /**
